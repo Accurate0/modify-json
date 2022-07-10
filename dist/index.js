@@ -2156,6 +2156,17 @@ exports.getAllInputs = void 0;
 const snakeToCamel = (str) => str
     .toLowerCase()
     .replace(/([-_][a-z])/g, (group) => group.toUpperCase().replace("-", "").replace("_", ""));
+const set = (obj, path, value) => {
+    var schema = obj; // a moving reference to internal objects within obj
+    var len = path.length;
+    for (var i = 0; i < len - 1; i++) {
+        var elem = path[i];
+        if (!schema[elem])
+            schema[elem] = {};
+        schema = schema[elem];
+    }
+    schema[path[len - 1]] = value;
+};
 const getAllInputs = () => {
     const inputs = {};
     Object.entries(process.env).forEach(([key, value]) => {
@@ -2166,12 +2177,15 @@ const getAllInputs = () => {
         if (key === "INPUT___OUTPUTFILE")
             return;
         const inputName = key.slice("INPUT_".length);
+        let newValue;
         try {
-            inputs[snakeToCamel(inputName)] = JSON.parse(value !== null && value !== void 0 ? value : "");
+            newValue = JSON.parse(value !== null && value !== void 0 ? value : "");
         }
         catch (_a) {
-            inputs[snakeToCamel(inputName)] = value;
+            newValue = value;
         }
+        const nested = inputName.split("__").map((s) => snakeToCamel(s));
+        set(inputs, nested, newValue);
     });
     return inputs;
 };

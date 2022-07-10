@@ -17,8 +17,10 @@ jobs:
         with:
           __inputFile: ./test.json
           __outputFile: ./output.json
-          api_key: 1
-          client_id: 2
-          client_secret: 3
-          sensor_data: 4
-          service_account: '{ "json": "test" }'
+          api_key: "key"
+          client_id: "2313123"
+          client_secret: "32131mdqpm"
+          sensor_data: "big string"
+          service_account__account_name: test
+          service_account__password: password
+          service_account__different__nested: nested
