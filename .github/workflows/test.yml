@@ -11,12 +11,20 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/setup-node@v2.1.2
+        with:
+          node-version: 16
+          cache: "yarn"
+
+      - name: install deps
+        run: yarn
+
       - uses: actions/checkout@main
       - uses: ./
         id: modify-json
         with:
-          __inputFile: ./test.json
-          __outputFile: ./output.json
+          __inputFile: ./tests/basic/test.json
+          __outputFile: ./tests/basic/output.json
           api_key: "key"
           client_id: "2313123"
           client_secret: "32131mdqpm"
@@ -24,3 +32,6 @@ jobs:
           service_account__account_name: test
           service_account__password: password
           service_account__different__nested: nested
+
+      - name: basic diff test
+        run: node tests/test.js ./tests/basic/output.json ./tests/basic/expected.json
