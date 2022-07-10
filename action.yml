@@ -1,0 +1,12 @@
+name: "modify-json"
+description: "Modify existing JSON file to include secrets"
+inputs:
+  __inputFile:
+    description: "Input file to modify"
+    required: true
+  __outputFile:
+    description: "Output file"
+    required: true
+runs:
+  using: "node16"
+  main: "./dist/index.js"

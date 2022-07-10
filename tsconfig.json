@@ -1,7 +1,6 @@
 {
   "compilerOptions": {
-    "lib": ["ES2017"],
-    "target": "es2016",
+    "target": "ES6",
     "module": "commonjs",
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
