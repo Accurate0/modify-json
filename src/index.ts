@@ -15,7 +15,10 @@ try {
 
       writeFile(outputFilename, JSON.stringify(f));
     })
-    .catch((e) => core.error(e));
+    .catch((e) => {
+      core.error(e);
+      throw e;
+    });
 } catch (error) {
   core.error("Unexpected error");
   throw error;
