@@ -19,7 +19,7 @@
     },
     "apiKey": "key",
     "serviceAccount": {
-        "password": "password",
+        "password": "password2",
         "accountName": "test",
         "different": {
             "nested": "nested"

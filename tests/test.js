@@ -8,6 +8,7 @@ if (args.length == 2) {
     var v2 = JSON.parse(fs.readFileSync(args[1]));
 
     var changes = diff.diff(v1, v2);
+    console.log(changes)
     if (changes) {
         exit(1);
     } else {
