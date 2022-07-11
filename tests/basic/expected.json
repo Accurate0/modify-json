@@ -19,6 +19,7 @@
     },
     "apiKey": "key",
     "serviceAccount": {
+        "this should stay": true,
         "password": "password",
         "accountName": "test",
         "different": {

@@ -2079,7 +2079,12 @@ const readFileAsJSON = (filename) => __awaiter(void 0, void 0, void 0, function*
     const data = yield getFile();
     try {
         const json = JSON.parse(data);
-        return json;
+        if (typeof json === "object" && !Array.isArray(json) && json !== null) {
+            return json;
+        }
+        else {
+            throw new Error("File must have top level object");
+        }
     }
     catch (e) {
         core.error(`File is not valid JSON: ${filename}`);
@@ -2128,9 +2133,9 @@ const inputs_1 = __nccwpck_require__(160);
 try {
     const inputFilename = core.getInput("__inputFile");
     const outputFilename = core.getInput("__outputFile");
-    const inputs = (0, inputs_1.getAllInputs)();
     (0, file_1.readFileAsJSON)(inputFilename)
         .then((f) => {
+        const inputs = (0, inputs_1.getAllInputs)(f);
         Object.entries(inputs).forEach(([key, value]) => {
             f[key] = value;
         });
@@ -2159,19 +2164,22 @@ exports.getAllInputs = void 0;
 const snakeToCamel = (str) => str
     .toLowerCase()
     .replace(/([-_][a-z])/g, (group) => group.toUpperCase().replace("-", "").replace("_", ""));
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const set = (obj, path, value) => {
-    var schema = obj; // a moving reference to internal objects within obj
-    var len = path.length;
-    for (var i = 0; i < len - 1; i++) {
-        var elem = path[i];
+    let schema = obj;
+    const len = path.length;
+    for (let i = 0; i < len - 1; i++) {
+        const elem = path[i];
         if (!schema[elem])
             schema[elem] = {};
         schema = schema[elem];
     }
     schema[path[len - 1]] = value;
 };
-const getAllInputs = () => {
-    const inputs = {};
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const getAllInputs = (obj) => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const inputs = obj;
     Object.entries(process.env).forEach(([key, value]) => {
         if (!/^INPUT_/.test(key))
             return;
@@ -2180,6 +2188,7 @@ const getAllInputs = () => {
         if (key === "INPUT___OUTPUTFILE")
             return;
         const inputName = key.slice("INPUT_".length);
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         let newValue;
         try {
             newValue = JSON.parse(value !== null && value !== void 0 ? value : "");

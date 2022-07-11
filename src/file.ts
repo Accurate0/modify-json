@@ -22,8 +22,11 @@ export const readFileAsJSON = async (filename: string): Promise<JSONFile> => {
   const data = await getFile();
   try {
     const json = JSON.parse(data);
-
-    return json as JSONFile;
+    if (typeof json === "object" && !Array.isArray(json) && json !== null) {
+      return json as JSONFile;
+    } else {
+      throw new Error("File must have top level object");
+    }
   } catch (e) {
     core.error(`File is not valid JSON: ${filename}`);
     throw e;

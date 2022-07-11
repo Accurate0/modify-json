@@ -5,11 +5,12 @@ const snakeToCamel = (str: string) =>
       group.toUpperCase().replace("-", "").replace("_", "")
     );
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const set = (obj: any, path: string[], value: any) => {
-  var schema = obj; // a moving reference to internal objects within obj
-  var len = path.length;
-  for (var i = 0; i < len - 1; i++) {
-    var elem = path[i];
+  let schema = obj;
+  const len = path.length;
+  for (let i = 0; i < len - 1; i++) {
+    const elem = path[i];
     if (!schema[elem]) schema[elem] = {};
     schema = schema[elem];
   }
@@ -17,8 +18,10 @@ const set = (obj: any, path: string[], value: any) => {
   schema[path[len - 1]] = value;
 };
 
-export const getAllInputs = () => {
-  const inputs: { [key: string]: any } = {};
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const getAllInputs = (obj: any) => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const inputs: { [key: string]: any } = obj;
 
   Object.entries(process.env).forEach(([key, value]) => {
     if (!/^INPUT_/.test(key)) return;
@@ -26,6 +29,7 @@ export const getAllInputs = () => {
     if (key === "INPUT___OUTPUTFILE") return;
 
     const inputName = key.slice("INPUT_".length);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     let newValue: any;
 
     try {

@@ -18,6 +18,8 @@
         "points": "MaccasApiPointDb"
     },
     "apiKey": "",
-    "serviceAccount": {},
+    "serviceAccount": {
+        "this should stay": true
+    },
     "sensorData": ""
 }

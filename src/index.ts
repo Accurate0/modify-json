@@ -5,10 +5,11 @@ import { getAllInputs } from "./inputs";
 try {
   const inputFilename = core.getInput("__inputFile");
   const outputFilename = core.getInput("__outputFile");
-  const inputs = getAllInputs();
 
   readFileAsJSON(inputFilename)
     .then((f) => {
+      const inputs = getAllInputs(f);
+
       Object.entries(inputs).forEach(([key, value]) => {
         f[key] = value;
       });
