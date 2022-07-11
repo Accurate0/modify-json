@@ -21,7 +21,7 @@ jobs:
         run: yarn
 
       - uses: ./
-        id: modify-json@basic
+        id: modify-json
         with:
           __inputFile: ./tests/basic/test.json
           __outputFile: ./tests/basic/output.json
