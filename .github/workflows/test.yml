@@ -32,6 +32,8 @@ jobs:
           service_account__account_name: test
           service_account__password: password
           service_account__different__nested: nested
+          array_test__0: "1"
+          array_test__1: "2"
 
       - name: basic diff test
         run: node tests/test.js ./tests/basic/output.json ./tests/basic/expected.json

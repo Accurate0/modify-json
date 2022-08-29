@@ -26,5 +26,9 @@
             "nested": "nested"
         }
     },
-    "sensorData": "big string"
+    "sensorData": "big string",
+    "arrayTest": [
+        1,
+        2
+    ]
 }

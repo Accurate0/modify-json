@@ -21,5 +21,6 @@
     "serviceAccount": {
         "this should stay": true
     },
-    "sensorData": ""
+    "sensorData": "",
+    "arrayTest": []
 }
